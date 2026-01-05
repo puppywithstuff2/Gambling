@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gambling Simulator — Slot Machine + Roulette</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Gambling Simulator</h1>
+      <p class="sub">Slots + Russian Roulette — persistent tokens</p>
+    </header>
+
+    <section class="machine">
+      <div class="hud">
+        <div class="balance">
+          <label>Tokens</label>
+          <div id="balance">100</div>
+        </div>
+
+        <div class="bet">
+          <label>Bet</label>
+          <div class="bet-controls">
+            <div class="quick-bets">
+              <button class="quick" data-bet="1">1</button>
+              <button class="quick" data-bet="5">5</button>
+              <button class="quick" data-bet="10">10</button>
+              <button class="quick" data-bet="25">25</button>
+              <button id="maxBet">Max</button>
+            </div>
+            <input id="betInput" type="number" min="1" value="5" />
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="spinBtn" class="spin">SPIN</button>
+          <label class="auto">
+            <input type="checkbox" id="autoToggle" />
+            Auto
+          </label>
+          <input id="autoCount" type="number" min="1" value="10" title="Auto spins" />
+        </div>
+      </div>
+
+      <div class="reels" aria-hidden="false">
+        <div class="reel" id="reel0"><div class="symbol">🍒</div></div>
+        <div class="reel" id="reel1"><div class="symbol">🍋</div></div>
+        <div class="reel" id="reel2"><div class="symbol">🔔</div></div>
+      </div>
+
+      <div class="result-bar">
+        <div id="message">Place a bet and press SPIN</div>
+        <div class="payouts">
+          <strong>Payouts:</strong>
+          <span>3x match = 10×</span>
+          <span>2x match = 2×</span>
+          <span>🍒🍒🍒 jackpot = 50×</span>
+        </div>
+      </div>
+
+      <div class="roulette-area">
+        <h3>Russian Roulette</h3>
+        <div class="rr-info">Cost: <strong>1000</strong> • Win: <strong>2500</strong> • Death chance: 1/6</div>
+        <button id="rrBtn" class="rr" disabled>Play Russian Roulette</button>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <h2>Recent</h2>
+      <ul id="history" class="history"></ul>
+
+      <h2>Paytable</h2>
+      <table class="paytable">
+        <thead><tr><th>Combo</th><th>Payout</th></tr></thead>
+        <tbody>
+          <tr><td>🍒🍒🍒</td><td>50×</td></tr>
+          <tr><td>Any 3 matching</td><td>10×</td></tr>
+          <tr><td>Any 2 matching</td><td>2×</td></tr>
+          <tr><td>Loss</td><td>0×</td></tr>
+        </tbody>
+      </table>
+
+      <footer class="credits">
+        <p>Made for you — open the file to play.</p>
+        <p><a href="https://chruffle.itch.io/gambling-simulator" target="_blank" rel="noopener">Original</a></p>
+      </footer>
+    </aside>
+  </main>
+
+  <!-- Confirmation modal for Roulette -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <h3>Play Russian Roulette?</h3>
+      <p>This will cost <strong>1000</strong> tokens. 1 in 6 chance to die. Win awards <strong>2500</strong> tokens if you survive.</p>
+      <div class="modal-actions">
+        <button id="modalCancel">Cancel</button>
+        <button id="modalConfirm" class="spin">Play</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Win modal -->
+  <div id="winModal" class="modal hidden">
+    <div class="modal-card">
+      <h2>Millionaire!</h2>
+      <p>You've reached <strong>1,000,000</strong> tokens — you won the game!</p>
+      <div class="modal-actions">
+        <button id="winKeep">Keep gambling</button>
+        <button id="winRestart" class="spin">Restart (100 tokens)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Over overlay -->
+  <div id="gameOver" class="gameover hidden">
+    <div class="gameover-card">
+      <h2>Game Over</h2>
+      <p>You died in Russian Roulette. Your tokens have been lost.</p>
+      <button id="restartBtn" class="spin">Restart (100 tokens)</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
